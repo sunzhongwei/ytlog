@@ -35,11 +35,14 @@ try:
 except ImportError:
     curses = None
 
-# Logger objects for internal tornado use
-app_log = logging.getLogger("app")
-LOG_FILE = "/data/logs/app/app.log"
+# ----------------------------------------
+# settings
+# ----------------------------------------
+APP_NAME = "app"
+app_log = logging.getLogger(APP_NAME)
+LOG_FILE = "/data/logs/%s/%s.log" % (APP_NAME, APP_NAME)
 LOG_LEVEL = "debug"
-LOG_FILE_MAX_SIZE = 100 * 1000 * 1000
+LOG_FILE_MAX_SIZE = 100 * 1000 * 1000       # 100M
 LOG_FILE_NUM_BACKUPS = 10
 LOG_TO_STDERR = True
 
@@ -263,5 +266,5 @@ log_options = {
 }
 
 options = Options(**log_options)
-enable_pretty_logging(options)
+enable_pretty_logging(options, app_log)
 
