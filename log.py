@@ -215,15 +215,16 @@ class LogFormatter(logging.Formatter):
 
 def enable_pretty_logging(options=None, logger=None):
     """Turns on formatted logging output as configured.
-
-    This is called automaticaly by `tornado.options.parse_command_line`
-    and `tornado.options.parse_config_file`.
     """
     if options.logging is None or options.logging.lower() == 'none':
         return
+
+    # create parent logger
     if logger is None:
         logger = logging.getLogger()
     logger.setLevel(getattr(logging, options.logging.upper()))
+
+    # create rotating file handler
     if options.log_file_prefix:
         channel = logging.handlers.RotatingFileHandler(
             filename=options.log_file_prefix,
@@ -232,6 +233,7 @@ def enable_pretty_logging(options=None, logger=None):
         channel.setFormatter(LogFormatter(color=False))
         logger.addHandler(channel)
 
+    # create console handler
     if (options.log_to_stderr or
             (options.log_to_stderr is None and not logger.handlers)):
         # Set up color if we are in a tty and curses is installed
