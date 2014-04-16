@@ -19,7 +19,9 @@
 
 How to use:
 
-    from rlog import log
+    from rlog import get_logger
+
+    log = get_logger({"name": "app"})
     log.info("Mission starts.")
 
 """
@@ -35,16 +37,28 @@ try:
 except ImportError:
     curses = None
 
-# ----------------------------------------
-# settings
-# ----------------------------------------
-APP_NAME = "app"
-log = logging.getLogger(APP_NAME)
-LOG_FILE = "/data/logs/%s/%s.log" % (APP_NAME, APP_NAME)
-LOG_LEVEL = "debug"
-LOG_FILE_MAX_SIZE = 100 * 1000 * 1000       # 100M
-LOG_FILE_NUM_BACKUPS = 10
-LOG_TO_STDERR = True
+
+def get_logger(custom_options):
+    name = custom_options["name"]
+    log = logging.getLogger(name)
+
+    log_file = "/data/logs/%s/%s.log" % (name, name)
+    log_dir = os.path.dirname(log_file)
+    if not os.path.exists(log_dir):
+        os.makedirs(log_dir)
+
+    default_options = {
+        "logging": "debug",
+        "log_file_prefix": log_file,
+        "log_file_max_size": 10 * 1000 * 1000,
+        "log_file_num_backups": 10,
+        "log_to_stderr": True,
+    }
+
+    default_options.update(custom_options)
+    options = Options(**default_options)
+    enable_pretty_logging(options, log)
+    return log
 
 
 # Fake unicode literal support:  Python 3.2 doesn't have the u'' marker for
@@ -251,20 +265,4 @@ class Options:
         '''
         self.__dict__.update(options)
 
-
-log_dir = os.path.dirname(LOG_FILE)
-if not os.path.exists(log_dir):
-    os.makedirs(log_dir)
-
-
-log_options = {
-    "logging": LOG_LEVEL,
-    "log_file_prefix": LOG_FILE,
-    "log_file_max_size": LOG_FILE_MAX_SIZE,
-    "log_file_num_backups": LOG_FILE_NUM_BACKUPS,
-    "log_to_stderr": LOG_TO_STDERR,
-}
-
-options = Options(**log_options)
-enable_pretty_logging(options, log)
 

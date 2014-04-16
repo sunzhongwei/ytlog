@@ -10,8 +10,9 @@ So I copy log.py module from [Tornado(github)](https://github.com/facebook/torna
 How to use
 ----------
     
-    from rlog import log
-    
+    from rlog import get_logger
+
+    log = get_logger({"name": "app"})
     log.info("Mission starts.")
 
 

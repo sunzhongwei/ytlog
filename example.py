@@ -10,7 +10,9 @@ __author__ = "Zhongwei Sun (zhongwei.sun2008@gmail.com)"
 
 # build-in, 3rd party and my modules
 import time
-from rlog import log
+from rlog import get_logger
+
+log = get_logger({"name": "app"})
 
 
 if '__main__' == __name__:
