@@ -4,7 +4,7 @@ rlog - log module for humans
 We use logging everyday, bug it's easy to forget how to use buildin 
 logging module of Python, because the configuration looks complicated. 
 
-So I copy log.py module from `Tornado(github) <https://github.com/facebook/tornado>`_
+So I copy log.py module from [Tornado(github)](https://github.com/facebook/tornado>)
 
 
 How to use
