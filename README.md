@@ -17,7 +17,7 @@ How to use
 
 Then we will see logging in console and log file under directory /data/logs/
 
-![screenshot](./rlog.png)
+![screenshot](./screenshot.png)
 
 So easy! 
 
