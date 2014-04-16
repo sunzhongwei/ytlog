@@ -19,8 +19,8 @@
 
 How to use:
 
-    from log import app_log
-    app_log.info("Mission starts.")
+    from rlog import log
+    log.info("Mission starts.")
 
 """
 
@@ -39,7 +39,7 @@ except ImportError:
 # settings
 # ----------------------------------------
 APP_NAME = "app"
-app_log = logging.getLogger(APP_NAME)
+log = logging.getLogger(APP_NAME)
 LOG_FILE = "/data/logs/%s/%s.log" % (APP_NAME, APP_NAME)
 LOG_LEVEL = "debug"
 LOG_FILE_MAX_SIZE = 100 * 1000 * 1000       # 100M
@@ -266,5 +266,5 @@ log_options = {
 }
 
 options = Options(**log_options)
-enable_pretty_logging(options, app_log)
+enable_pretty_logging(options, log)
 
