@@ -25,12 +25,11 @@ How to use:
 """
 
 from __future__ import absolute_import, division, print_function, with_statement
-
 import logging
 import logging.handlers
+import os
+import os.path
 import sys
-
-
 try:
     import curses
 except ImportError:
@@ -38,6 +37,11 @@ except ImportError:
 
 # Logger objects for internal tornado use
 app_log = logging.getLogger("app")
+LOG_FILE = "/data/logs/app/app.log"
+LOG_LEVEL = "debug"
+LOG_FILE_MAX_SIZE = 100 * 1000 * 1000
+LOG_FILE_NUM_BACKUPS = 10
+LOG_TO_STDERR = True
 
 
 # Fake unicode literal support:  Python 3.2 doesn't have the u'' marker for
@@ -243,12 +247,17 @@ class Options:
         self.__dict__.update(options)
 
 
+log_dir = os.path.dirname(LOG_FILE)
+if not os.path.exists(log_dir):
+    os.makedirs(log_dir)
+
+
 log_options = {
-    "logging": "debug",              # log level
-    "log_file_prefix": "app.log",       # path prefix for log files
-    "log_file_max_size": 100 * 1000 * 1000,  # max size of log files before rollover
-    "log_file_num_backups": 10,     # number of log files to keep
-    "log_to_stderr": True,
+    "logging": LOG_LEVEL,
+    "log_file_prefix": LOG_FILE,
+    "log_file_max_size": LOG_FILE_MAX_SIZE,
+    "log_file_num_backups": LOG_FILE_NUM_BACKUPS,
+    "log_to_stderr": LOG_TO_STDERR,
 }
 
 options = Options(**log_options)
