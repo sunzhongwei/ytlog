@@ -1,4 +1,5 @@
 #!/usr/bin/env python
+# -*- coding: utf-8 -*-
 #
 # Copyright 2012 Facebook
 #
@@ -13,21 +14,16 @@
 # WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
 # License for the specific language governing permissions and limitations
 # under the License.
-"""Logging support for Tornado.
 
-Tornado uses three logger streams:
+"""Logging module copied from Tornado.
 
-* ``tornado.access``: Per-request logging for Tornado's HTTP servers (and
-  potentially other servers in the future)
-* ``tornado.application``: Logging of errors from application code (i.e.
-  uncaught exceptions from callbacks)
-* ``tornado.general``: General-purpose logging, including any errors
-  or warnings from Tornado itself.
+How to use:
 
-These streams may be configured independently using the standard library's
-`logging` module.  For example, you may wish to send ``tornado.access`` logs
-to a separate file for analysis.
+    from log import app_log
+    app_log.info("Mission starts.")
+
 """
+
 from __future__ import absolute_import, division, print_function, with_statement
 
 import logging
@@ -249,10 +245,10 @@ class Options:
 
 log_options = {
     "logging": "debug",              # log level
-    "log_file_prefix": "log",       # path prefix for log files
+    "log_file_prefix": "app.log",       # path prefix for log files
     "log_file_max_size": 100 * 1000 * 1000,  # max size of log files before rollover
     "log_file_num_backups": 10,     # number of log files to keep
-    "log_to_stderr": False
+    "log_to_stderr": True,
 }
 
 options = Options(**log_options)
