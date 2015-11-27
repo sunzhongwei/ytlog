@@ -7,6 +7,9 @@ logging module of Python, because the configuration looks complicated.
 So I copy log.py module from [Tornado(github)](https://github.com/facebook/tornado)
 
 
+	pip install rlog
+
+
 How to use
 ----------
     
