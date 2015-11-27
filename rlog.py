@@ -39,11 +39,13 @@ except ImportError:
 
 
 def get_logger(custom_options):
-    name = custom_options["name"]
+    '''name and dir are required.
+    '''
+    name = custom_options.get("name", "app")
+    log_dir = custom_options.get("dir", "/data/logs/%s/" % name)
+    log_file = os.path.join(log_dir, "%s.log" % name)
     log = logging.getLogger(name)
 
-    log_file = "/data/logs/%s/%s.log" % (name, name)
-    log_dir = os.path.dirname(log_file)
     if not os.path.exists(log_dir):
         os.makedirs(log_dir)
 
@@ -122,6 +124,7 @@ def _safe_unicode(s):
 
 
 class LogFormatter(logging.Formatter):
+
     """Log formatter used in Tornado.
 
     Key features of this formatter are:
@@ -260,9 +263,8 @@ def enable_pretty_logging(options=None, logger=None):
 
 
 class Options:
+
     def __init__(self, **options):
         '''convert dict to object
         '''
         self.__dict__.update(options)
-
-

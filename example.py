@@ -12,7 +12,7 @@ __author__ = "Zhongwei Sun (zhongwei.sun2008@gmail.com)"
 import time
 from rlog import get_logger
 
-log = get_logger({"name": "app"})
+log = get_logger({"name": "app", "dir": "./"})
 
 
 if '__main__' == __name__:
@@ -25,4 +25,3 @@ if '__main__' == __name__:
         log.warning("I'm warning.")
         log.error("I'm error.")
         time.sleep(wait_time)
-
