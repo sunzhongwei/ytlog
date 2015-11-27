@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
-__version__ = "0.0.1"
+__version__ = "0.3"
 __author__ = "Zhongwei Sun (zhongwei.sun2008@gmail.com)"
 
 # ----------------------------------------
@@ -10,7 +10,7 @@ __author__ = "Zhongwei Sun (zhongwei.sun2008@gmail.com)"
 
 # build-in, 3rd party and my modules
 import time
-from rlog import get_logger
+from ytlog import get_logger
 
 log = get_logger({"name": "app", "dir": "./"})
 

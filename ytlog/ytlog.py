@@ -19,7 +19,7 @@
 
 How to use:
 
-    from rlog import get_logger
+    from ytlog import get_logger
 
     log = get_logger({"name": "app"})
     log.info("Mission starts.")
